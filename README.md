@@ -1,5 +1,7 @@
 # CodeMunch Pro
 
+<!-- mcp-name: io.github.BigJai/codemunch-pro -->
+
 Intelligent code indexing MCP server. Tree-sitter AST extraction, hybrid search (FTS5 + vector), call graphs, 10 languages, incremental indexing.
 
 **Save 99% of tokens** — get exact function source via byte-offset seek instead of reading entire files.

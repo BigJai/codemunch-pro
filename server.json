@@ -1,148 +1,22 @@
 {
-  "$schema": "https://cdn.mcpregistry.io/specs/v2025-12-11/server-schema.json",
-  "name": "CodeMunch Pro",
-  "description": "Intelligent code indexing MCP server. Tree-sitter AST extraction, hybrid search (FTS5 + vector), call graphs, 10 languages, incremental indexing. Save 99% of tokens with O(1) byte-offset symbol retrieval.",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.BigJai/codemunch-pro",
+  "description": "Code indexing MCP: 13 tools, 10 languages, hybrid search, call graphs, O(1) retrieval.",
   "repository": {
     "url": "https://github.com/BigJai/codemunch-pro",
-    "source": "github",
-    "id": "BigJai/codemunch-pro"
+    "source": "github"
   },
-  "version_detail": {
-    "version": "0.1.0",
-    "release_date": "2026-03-02",
-    "is_latest": true
-  },
+  "version": "0.1.1",
   "packages": [
     {
-      "registry_name": "pypi",
-      "name": "codemunch-pro",
-      "version": "0.1.0",
-      "runtime": "python",
-      "runtime_version": ">=3.10",
-      "package_arguments": [],
-      "environment_variables": []
+      "registryType": "pypi",
+      "identifier": "codemunch-pro",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": []
     }
   ],
-  "remotes": [],
-  "tools": [
-    {
-      "name": "index_folder",
-      "description": "Index a local directory using tree-sitter AST parsing. Supports 10 languages with incremental indexing.",
-      "annotations": {
-        "title": "Index Folder",
-        "readOnlyHint": false,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "index_repo",
-      "description": "Index a GitHub or GitLab repository by cloning it locally.",
-      "annotations": {
-        "title": "Index Repository",
-        "readOnlyHint": false,
-        "openWorldHint": true
-      }
-    },
-    {
-      "name": "list_repos",
-      "description": "List all indexed repositories with stats.",
-      "annotations": {
-        "title": "List Repositories",
-        "readOnlyHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "invalidate_cache",
-      "description": "Force re-index a repository by clearing its cache.",
-      "annotations": {
-        "title": "Invalidate Cache",
-        "readOnlyHint": false,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "file_tree",
-      "description": "Get directory tree of an indexed repository with file counts.",
-      "annotations": {
-        "title": "File Tree",
-        "readOnlyHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "file_outline",
-      "description": "List all symbols in a single file ordered by line number.",
-      "annotations": {
-        "title": "File Outline",
-        "readOnlyHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "repo_outline",
-      "description": "List all symbols in the repository (summary view).",
-      "annotations": {
-        "title": "Repository Outline",
-        "readOnlyHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "get_symbol",
-      "description": "Get full source code of a symbol via O(1) byte-offset seek. Saves 99% tokens vs reading entire files.",
-      "annotations": {
-        "title": "Get Symbol",
-        "readOnlyHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "get_symbols",
-      "description": "Batch get source code for multiple symbols at once.",
-      "annotations": {
-        "title": "Get Symbols (Batch)",
-        "readOnlyHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "search_symbols",
-      "description": "Hybrid search across symbols using FTS5 keyword + vector semantic similarity with Reciprocal Rank Fusion.",
-      "annotations": {
-        "title": "Search Symbols",
-        "readOnlyHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "search_text",
-      "description": "Full-text search in file contents. Find string literals, comments, config values.",
-      "annotations": {
-        "title": "Search Text",
-        "readOnlyHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "get_callees",
-      "description": "Get what a function calls (outgoing call graph edges) with depth traversal.",
-      "annotations": {
-        "title": "Get Callees",
-        "readOnlyHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "get_callers",
-      "description": "Get who calls a function (incoming call graph edges) with depth traversal.",
-      "annotations": {
-        "title": "Get Callers",
-        "readOnlyHint": true,
-        "openWorldHint": false
-      }
-    }
-  ],
-  "prompts": [],
-  "resources": []
+  "remotes": []
 }
