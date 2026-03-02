@@ -291,21 +291,52 @@ def create_server(
     def index_repo(
         url: str,
         branch: str = '',
+        token: str = '',
         sparse_paths: list[str] | None = None,
+        embed: bool = True,
     ) -> dict[str, Any]:
-        """Index a GitHub or GitLab repository by cloning it locally.
+        """Index a GitHub or GitLab repository by downloading its tarball.
 
-        Clones the repo (or sparse-checkout specific paths), then indexes.
-        Subsequent calls re-use the clone and only fetch + re-index changes.
+        No git binary needed. Downloads the repo archive, extracts, and indexes.
+        Subsequent calls use a cache — only re-downloads if new commits exist.
 
         Args:
-            url: Repository URL (GitHub, GitLab, or any git URL).
-            branch: Branch to clone (default: repo default branch).
-            sparse_paths: Optional list of paths for sparse checkout (e.g. ["src/", "lib/"]).
+            url: Repository URL (e.g. "https://github.com/owner/repo").
+            branch: Branch to index (default: repo's default branch).
+            token: Optional auth token for private repos (GitHub PAT or GitLab token).
+            sparse_paths: Optional list of paths to index (e.g. ["src/", "lib/"]).
+            embed: Whether to generate vector embeddings (default True).
         """
+        from codemunch_pro.remote import fetch_repo
+
+        try:
+            fetch_result = fetch_repo(
+                url=url,
+                branch=branch,
+                token=token,
+                sparse_paths=sparse_paths,
+            )
+        except Exception as e:
+            return {'error': f'Failed to fetch repo: {e}'}
+
+        if 'error' in fetch_result:
+            return fetch_result
+
+        local_path = fetch_result['local_path']
+
+        # Index the downloaded repo
+        index_stats = _index_directory(
+            local_path,
+            embed=embed,
+        )
+
         return {
-            'error': 'Remote repo indexing not yet implemented in v0.1. Use index_folder with a local clone.',
-            'hint': f'git clone {url} /tmp/repo && then call index_folder',
+            **index_stats,
+            'repo_url': url,
+            'branch': fetch_result['branch'],
+            'sha': fetch_result['sha'],
+            'cached': fetch_result['cached'],
+            'local_path': local_path,
         }
 
     # --- Tool 3: list_repos ---

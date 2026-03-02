@@ -39,7 +39,7 @@ codemunch-pro --transport streamable-http --port 5002
 | Tool | Description |
 |------|-------------|
 | `index_folder` | Index a local directory (incremental, SHA-256 based) |
-| `index_repo` | Index a GitHub/GitLab repo (v1.1) |
+| `index_repo` | Index a GitHub/GitLab repo (tarball download, no git needed) |
 | `list_repos` | List all indexed repositories with stats |
 | `invalidate_cache` | Force re-index a repository |
 | `file_tree` | Get directory tree with file counts |
@@ -71,6 +71,9 @@ Combines BM25 keyword matching with semantic vector similarity using Reciprocal 
 
 ### Call Graphs
 Traces function calls through the AST. `get_callees("main")` shows what `main` calls. `get_callers("authenticate")` shows who calls `authenticate`. Supports depth traversal.
+
+### Remote Repo Indexing (v1.1)
+Index any public GitHub or GitLab repo by URL — no git binary needed. Downloads the tarball via API, extracts, and indexes. Cached locally with SHA-based freshness checks. Supports private repos with auth tokens and sparse paths.
 
 ### Full-Text Content Search
 Search raw file contents — string literals, TODO comments, config values, error messages. Not just symbol names.
